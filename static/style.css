@@ -1,6 +1,7 @@
 body {
     /*font-family: 'Verdana', sans-serif;*/
     margin: 50px 25px;
+    background:#fff;
 }
 
 a {
@@ -20,14 +21,19 @@ body h1{
     font-family: 'Istok Web', sans-serif;
 }
 
+h2 {
+    margin-bottom:5px;
+}
+
 body h2 a{
     font-weight: bold;
     font-size: 20px;
     font-family: 'Istok Web', sans-serif;
+    :5px;
 }
 
 footer, div.page {
-    width: 760px;
+    max-width:800px;
     margin-left: 20%;
     /*background: #daeef3;*/
     padding: 20px 30px;
@@ -57,9 +63,16 @@ header {
 
     footer, div.page {
         width: 100%;
-        margin-left: 0;
+        margin: 0;
     }
 
+    .projects{
+    width:100%;
+    }
+
+    body {
+        margin:0;
+    }
 }
 
 header h1 {
@@ -88,7 +101,7 @@ header nav ul li {
 }
 
 div.page {
-    background: #f1fbfe;
+
 }
 
 div.page img {
@@ -99,3 +112,26 @@ div.page img {
     border-color: #000;
 }
 
+.projects {
+    display:flex;
+    align-items: flex-start;
+    flex-flow: row wrap;
+    height: 100vw;
+}
+
+.project{
+    background: #f1fbfe;
+    max-width:400px;
+    margin:10px;
+    -webkit-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
+    -moz-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
+    box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
+    padding:10px;
+
+}
+
+div#info{
+    background:#f1fbfe;
+
+
+}
