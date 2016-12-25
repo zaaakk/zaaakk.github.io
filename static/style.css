@@ -1,28 +1,78 @@
 body {
-    font-family: 'Verdana', sans-serif;
+    /*font-family: 'Verdana', sans-serif;*/
     margin: 50px 25px;
 }
 
 a {
-    color: #2a99b6;
+    /*color: #2a99b6;*/
 }
 
 a:hover {
-    color: #33bbdf;
+    color: #005952;
 }
 
-header, footer, div.page {
+
+body h1{
+    color: #666;
+    margin: 0;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Istok Web', sans-serif;
+}
+
+body h2 a{
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Istok Web', sans-serif;
+}
+
+footer, div.page {
     width: 760px;
-    margin: 0 auto;
-    background: #daeef3;
+    margin-left: 20%;
+    /*background: #daeef3;*/
     padding: 20px 30px;
+}
+
+header {
+    height: 100%; /* 100% Full-height */
+    width:20%;
+    max-width: 200px; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #ff; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y:scroll;
+    padding-top: 20px; /* Place content 60px from the top */
+    padding: 15px;
+    vertical-align:baseline;
+}
+
+/*Remove header on mobile*/
+@media screen and (max-width: 600px) {
+    header {
+        display:none;
+    }
+
+    footer, div.page {
+        width: 100%;
+        margin-left: 0;
+    }
+
 }
 
 header h1 {
     color: #169bbd;
     margin: 0;
-    font-weight: normal;
-    font-size: 42px;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Istok Web', sans-serif;
+}
+
+header h1 a {
+    text-underline: none;
+    color: #666;
 }
 
 header nav ul {
@@ -32,7 +82,7 @@ header nav ul {
 }
 
 header nav ul li {
-    display: inline;
+    display: block;
     margin: 0 8px 0 0;
     padding: 0;
 }
@@ -40,3 +90,12 @@ header nav ul li {
 div.page {
     background: #f1fbfe;
 }
+
+div.page img {
+    margin:20px;
+    max-width:300px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000;
+}
+
