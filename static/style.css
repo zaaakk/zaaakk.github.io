@@ -14,7 +14,7 @@ a:hover {
 
 
 body h1{
-    color: #666;
+    color: #000;
     margin: 0;
     font-weight: bold;
     font-size: 25px;
@@ -40,16 +40,18 @@ footer, div.page {
 }
 
 header {
+    margin-left:15px;
+    margin-top: 15px;
     height: 100%; /* 100% Full-height */
     width:20%;
-    max-width: 200px; /* 0 width - change this with JavaScript */
+    max-width: 250px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
     background-color: #ff; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
-    overflow-y:scroll;
+    /*overflow-y:scroll;*/
     padding-top: 20px; /* Place content 60px from the top */
     padding: 15px;
     vertical-align:baseline;
@@ -76,7 +78,7 @@ header {
 }
 
 header h1 {
-    color: #169bbd;
+
     margin: 0;
     font-weight: bold;
     font-size: 25px;
@@ -85,7 +87,7 @@ header h1 {
 
 header h1 a {
     text-underline: none;
-    color: #666;
+    color: #000;
 }
 
 header nav ul {
@@ -106,15 +108,27 @@ div.page {
 
 div.page img {
     margin:20px;
-    max-width:300px;
+    max-width:900px;
     border-style: solid;
     border-width: 2px;
     border-color: #000;
 }
 
+div.page p {
+    max-width:600px;
+}
+
+
+.projects img {
+    margin:20px;
+    max-width:200px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000;
+}
 .projects {
     display:flex;
-    align-items: flex-start;
+    align-items: baseline;
     flex-flow: row wrap;
     height: 100vw;
 }
@@ -126,12 +140,35 @@ div.page img {
     -webkit-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
     -moz-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
     box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
+    padding-left:0px;
+    padding-top:0px;
+    border-style:solid;
+    border-color:#000;
+    border-width:2px;
+
+}
+
+.project h2{
+padding-left:5px;
+    padding-top:5px;
+    padding-bottom:3px;
+    margin:0px;
+    background:#999;
+}
+
+.project hr{
+    margin-top:0px;
+    margin-left:0px;
+    width:100%;
+    color:#000;
+    border-style:solid;
+}
+div#info{
+    background:#f1fbfe;
     padding:10px;
 
 }
 
-div#info{
-    background:#f1fbfe;
-
+div#right{
 
 }
