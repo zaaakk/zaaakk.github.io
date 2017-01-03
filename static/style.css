@@ -25,11 +25,20 @@ h2 {
     margin-bottom:5px;
 }
 
+
 body h2 a{
     font-weight: bold;
     font-size: 20px;
     font-family: 'Istok Web', sans-serif;
     :5px;
+}
+
+body h3{
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Istok Web', sans-serif;
+    margin-bottom:5px;
+    margin-top:5px;
 }
 
 footer, div.page {
@@ -49,13 +58,15 @@ header {
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #ff; /* Black*/
+    background-color: #fff; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     /*overflow-y:scroll;*/
     padding-top: 20px; /* Place content 60px from the top */
     padding: 15px;
     vertical-align:baseline;
 }
+
+
 
 /*Remove header on mobile*/
 @media screen and (max-width: 600px) {
@@ -102,21 +113,41 @@ header nav ul li {
     padding: 0;
 }
 
+header a {
+    text-decoration: none;
+}
+
+header p {
+    margin:8px;
+}
+
 div.page {
 
 }
 
 div.page img {
     margin:20px;
-    max-width:900px;
+    width:900px;
     border-style: solid;
     border-width: 2px;
     border-color: #000;
+    max-width:90%;
 }
+
+
 
 div.page p {
     max-width:600px;
+   line-height: 115%;
+    margin-left:20px;
+
 }
+
+div.page h1 {
+    margin-left:10px;
+}
+
+div.page sub, sup { line-height: 0.1em; }
 
 
 .projects img {
@@ -129,13 +160,19 @@ div.page p {
 .projects {
     display:flex;
     align-items: baseline;
-    flex-flow: row wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     height: 100vw;
+    max-width: 1000px;
+    /*column-count:2;*/
+
 }
 
 .project{
+    break-inside: avoid;
     background: #f1fbfe;
-    max-width:400px;
+    max-width:370px;
     margin:10px;
     -webkit-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
     -moz-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
@@ -163,6 +200,14 @@ padding-left:5px;
     color:#000;
     border-style:solid;
 }
+
+p.meta {
+    font-size:12px;
+    font-weight: 100;
+    color:#888;
+    margin-left:50px;
+    margin-top:5px;
+}
 div#info{
     background:#f1fbfe;
     padding:10px;
@@ -172,3 +217,19 @@ div#info{
 div#right{
 
 }
+
+.imagesmall{
+    max-width:400px;
+}
+
+.caption{
+    max-width:400px;
+    font-style:italic;
+    margin-left:20px;
+}
+
+.image{
+
+}
+
+
