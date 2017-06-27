@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size:14px;
     margin: 20px 25px;
-    background:#fff;
+    background:#f0f0f0;
 
 }
 
@@ -55,12 +55,11 @@ header {
     margin-top: 15px;
     height: 100%; /* 100% Full-height */
     width:20%;
-    max-width: 250px; /* 0 width - change this with JavaScript */
+    max-width: 200px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #fff; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     /*overflow-y:scroll;*/
     padding-top: 20px; /* Place content 60px from the top */
@@ -72,10 +71,15 @@ header {
 
 /*Remove header on mobile*/
 @media only screen and (max-width: 600px) {
-    header {
-        display:none;
-    }
+    #info {
 
+    display:none;}
+    body > header > h1 > a {
+        display:block;
+        position:fixed;
+        top:5px;
+        right:5px;
+    }
     footer, div.page {
         width: 100%;
         margin: 0;
@@ -84,11 +88,28 @@ header {
 
     .projects{
     width:100%;
+
     }
+
+    .category > .project{
+        max-width:500px;
+    }
+
+    .projects > .category{
+         border-style:none;
+    }
+
+
+projects img {
+    max-width:100%;
+}
+
 
     body {
         margin:0;
     }
+
+
 }
 
 header h1 {
@@ -133,9 +154,6 @@ div.page {
 div.page img {
     margin:20px;
     width:900px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #000;
     max-width:90%;
 }
 
@@ -161,6 +179,10 @@ div.page h1 {
 div.page sub, sup { line-height: 0.1em; }
 
 
+#sort {
+    margin-left:20px;
+}
+
 .projects img {
     margin:20px;
     max-width:200px;
@@ -169,30 +191,48 @@ div.page sub, sup { line-height: 0.1em; }
     border-color: #000;
 }
 .projects {
-    display:flex;
+  width:100%;
+        display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    max-width: 1000 px;
+
+}
+
+.category {
+      display:flex;
     align-items: baseline;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    height: 100vw;
-    max-width: 1000px;
-    /*column-count:2;*/
 
+    width:auto;
+     break-inside: avoid;
+ 
 }
 
 .project{
     break-inside: avoid;
-    background: #f3f3f3;
-    max-width:370px;
+    max-width: 100px;
     margin:10px;
-    -webkit-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
-    -moz-box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
-    box-shadow: 7px 11px 34px 0px rgba(0,0,0,0.59);
     padding-left:0px;
     padding-top:0px;
     border-style:solid;
     border-color:#000;
     border-width:2px;
+  -o-transition:.2s;
+  -ms-transition:.2s;
+  -moz-transition:.2s;
+  -webkit-transition:.2s;
+  /* ...and now for the proper property */
+  transition:.2s;
+}
+
+.project:hover{
+    background:#f0f0f0;
+    border-color:#4D4DFF;
 
 }
 
@@ -200,8 +240,14 @@ div.page sub, sup { line-height: 0.1em; }
 padding-left:5px;
     padding-top:5px;
     padding-bottom:3px;
-    margin:0px;
-    background:#999;
+
+}
+
+.project h3{
+padding-left:5px;
+    padding-top:5px;
+    padding-bottom:3px;
+
 }
 
 .project hr{
@@ -215,7 +261,6 @@ padding-left:5px;
 p.meta {
     font-size:12px;
     font-weight: 100;
-    color:#888;
     margin-left:50px;
     margin-top:5px;
 }

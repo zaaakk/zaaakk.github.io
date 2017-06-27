@@ -6,65 +6,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Zak Ziebell is an artist and programmer studying at Brown University and the Rhode Island School of Design.">
 <script src="https://use.fontawesome.com/9404b4f96f.js"></script>
+
+
+
 <title>Wraith (2015) Zak Ziebell</title>
 <body>
 
   <header>
     <h1><a href="../">Zak Ziebell</a></li></h1>
     <div id="info">
+    <h2 data-decrypt=
       <a href="https://github.com/zaaakk">
         <i class="fa fa-github" aria-hidden="true"></i>
       </a>
       <a href="https://www.instagram.com/zaaakk/">
         <i class="fa fa-instagram" aria-hidden="true"></i>
       </a>
-      <a href="mailto:zziebell@risd.edu"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+      
       <h3>Bio</h3>
-      <p>20 years old. Studying painting, computer science, and philosophy at Brown University and the Rhode Island School of Design.
+      <p>21 years old. Studying painting, computer science, and philosophy at Brown University and the Rhode Island School of Design.
       Interested in landscapes, interfaces, and history.</p>
-      <h3>Collaborative Projects</h3>
-      <nav>
-      <ul class="nav">
-        <li><a  target="_blank" href="https://github.com/Brown-University-Library/usepweb_project">U.S. Epigraphy Project</a></li>
-        <li><a  target="_blank" href="https://github.com/Brown-University-Library/ttwr">Theater That Was Rome</a></li>
-        <li><a  target="_blank" href="http://rhizome.org/editorial/2016/oct/04/the-download-technologies-of-care/">Technologies of Care</a></li>
-        </ul>
-        </nav>
-      <h3>Personal Projects</h3>
-    <nav>
-      <ul class="nav">
-        <li>
-        
-        <li><a href="../tech-project/">Diamond</a> 💻</li>
-        
-        <li><a href="../punishment-writing/">Punishment Writing</a> 📚</li>
-        
-        <li><a href="../my-desk/">My Desk</a> 💻</li>
-        
-        <li><a href="../contra-scanned/">Contra-Scanned</a> 💻</li>
-        
-        <li><a href="../paintings-spring/">House Paintings</a> 🎨</li>
-        
-        <li><a href="../nails/">Nails</a> 💻💅🏼</li>
-        
-        <li><a href="../tweets-of-providence/">Tweets of Providence</a> 💻🏠</li>
-        
-        <li><a href="../fall-2015-paintings/">Fall Paintings</a> 🎨</li>
-        
-        <li class="active"><a href="../wraith/">Wraith</a> 💻</li>
-        
-        <li><a href="../amema/">Amema</a> 💻</li>
-        
-        <li><a href="../recycle/">Recycle</a> 🎨</li>
-        
-        <li><a href="../risd-foundations-year/">RISD Foundations Year</a> 🎨</li>
-        
-        <li><a href="../history-comic/">History Comic</a> 📚🎨</li>
-        
-        <li><a href="../map-merge/">Map Merge</a> 💻🌎</li>
-        
-      </ul>
-    </nav>
     </div>
 
 
@@ -88,5 +49,137 @@
 
   </div>
   <footer>
+
+<script src="../static/build/three.min.js"></script>
+<script src="../static/js/loaders/DDSLoader.js"></script>
+<script src="../static/js/loaders/MTLLoader.js"></script>
+<script src="../static/js/loaders/OBJLoader.js"></script>
+
+<script src="../static/js/Detector.js"></script>
+<script src="../static/js/libs/stats.min.js"></script>
+<script type="text/javascript">
+    var OBJloaded;
+    var container, stats;
+    var camera, scene, renderer, object, sphere, sky;
+    var mouseX = 0, mouseY = 0;
+    var windowHalfX = window.innerWidth / 2;
+    var windowHalfY = window.innerHeight / 2;
+    init();
+    animate();
+
+    function init() {
+        container = document.createElement('div');
+        container.setAttribute("id", "3d");
+        container.style["position"] = "fixed";
+        container.style["z-index"] = "-1";
+        container.style["top"] = "0";
+        container.style["left"] = "0";
+                container.style["background"] = "#f0f0f0";
+        container.style["opacity"] = "1";
+        document.body.appendChild(container);
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 8000);
+        camera.position.z = 743;
+        camera.position.y = -1900;
+
+
+
+        // scene
+        scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2( 0xf0f0f0, .001 );
+        //scene.fog = new THREE.FogExp2( 0xeffffff, 0.00055);
+        var ambient = new THREE.AmbientLight(0xf0f0f0);
+        scene.add(ambient);
+        var directionalLight = new THREE.DirectionalLight(0xff893a);
+        directionalLight.position.set(2, 0, 1).normalize();
+        scene.add(directionalLight);
+
+
+        // sistinechapel
+        var onProgress = function (xhr) {
+            if (xhr.lengthComputable) {
+                var percentComplete = xhr.loaded / xhr.total * 100;
+                console.log(Math.round(percentComplete, 2) + '% downloaded');
+            }
+        };
+        var onError = function (xhr) {
+        };
+        THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setPath("../static/");
+        mtlLoader.load('houses.obj.mtl', function (materials) {
+            materials.preload();
+            var objLoader = new THREE.OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.setPath("../static/");
+            objLoader.load('houses.obj', function (object) {
+                OBJloaded = object;
+                //object.position.y = - 95;
+//                object.rotation.z = 5;
+//                object.rotation.x = 1;
+//                object.rotation.y = 0;
+                object.rotation.z = .5;
+                  object.rotation.y = 114;
+                  object.rotation.x = .5;
+                object.scale.y = 100;
+                object.scale.z = 100;
+                object.scale.x = 100;
+                object.position.x = 100;
+                object.position.y = -100;
+
+                if (object instanceof THREE.Object3D) {
+                    object.traverse(function (mesh) {
+                        if (!(mesh instanceof THREE.Mesh)) return;
+
+                        mesh.material.side = THREE.DoubleSide;
+                    });
+                }
+
+                scene.add(object);
+
+            }, onProgress, onError);
+        });
+
+
+        //
+        renderer = new THREE.WebGLRenderer({alpha: true});
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0xf0f0f0, 1);
+        //renderer.setClearColor(0xefd1b5, 1);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+        //
+        window.addEventListener('resize', onWindowResize, false);
+
+
+    }
+    function onWindowResize() {
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    function onDocumentMouseMove(event) {
+        mouseX = ( event.clientX - windowHalfX ) / 2;
+        mouseY = ( event.clientY - windowHalfY ) / 2;
+    }
+    //
+
+    function animate() {
+
+        requestAnimationFrame(animate);
+
+        if (OBJloaded) {
+            OBJloaded.rotation.y += 0.0004
+            console.log(OBJloaded.rotation.y);
+
+        }
+        camera.position.x += ( mouseX - camera.position.x ) * .2;
+        camera.position.y += ( -mouseY - camera.position.y ) * .2;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+
+    }
+</script>
   </footer>
 </body>
