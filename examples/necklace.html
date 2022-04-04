@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Necklace Viewer</title>
+<link rel="stylesheet" href="./style.css">
+
+<style>
+.bg {
+display:none;
+position:absolute; z-index:-5; top:0; left:0; width:100vw; height:100vh; 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/three@0.138.2/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.135.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.138.2/examples/jsm/postprocessing/EffectComposer.js"></script>
+<script src="https://unpkg.com/three@0.135.0/examples/jsm/postprocessing/RenderPass.js"></script>
+<script src="https://unpkg.com/three@0.135.0/examples/jsm/postprocessing/ShaderPass.js"></script>
+<script src="https://unpkg.com/three@0.135.0/examples/jsm/postprocessing/OutlinePass.js"></script>
+<script src="https://unpkg.com/three@0.135.0/examples/jsm/shaders/FXAAShader.js"></script>
+
+<script src="../dist/camera-controls.js"></script>
+<script>
+
+
+CameraControls.install( { THREE: THREE } );
+let INTERSECTED;
+let INTERSECTED_click;
+let theta = 0;
+let disableAutoRotate = true;
+var necklace;
+var selector;
+const radius = 100;
+const width  = window.innerWidth;
+const height = window.innerHeight;
+const clock = new THREE.Clock();
+const scene  = new THREE.Scene();
+const pointer = new THREE.Vector2();
+const camera = new THREE.PerspectiveCamera( 60, width / height, 0.01, 1000 );
+camera.position.set( 0, 1, 6);
+camera.rotation.set( 0, 0, 0);
+const  renderer = new THREE.WebGLRenderer( { antialias: true, alpha:true } );
+renderer.setSize( width, height );
+renderer.outputEncoding = THREE.sRGBEncoding;
+document.body.appendChild( renderer.domElement );
+document.addEventListener( 'mousemove', onPointerMove );
+	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+const cameraControls = new CameraControls( camera, renderer.domElement );
+const light = new THREE.PointLight( 0xff0000, 1, 100 );
+scene.add(
+	new THREE.HemisphereLight( 0x443333, 0x332222 ),
+	new THREE.AmbientLight( 0x999999 ),
+);
+
+raycaster = new THREE.Raycaster();
+
+new THREE.GLTFLoader().load( './xmas.glb', function ( gltf ) {
+
+	gltf.scene.scale.set(.1, .1, .1);
+
+	  gltf.scene.traverse( function ( child ) {
+        if ( child.isMesh ) {
+
+        		var model = child;
+				model.boundingSphere = computeBoundingSphere( model );
+
+        }
+       });
+
+
+
+
+	necklace = gltf.scene;
+
+	scene.add( necklace );
+
+
+
+
+	renderer.render( scene, camera );
+
+} 
+
+
+);
+
+
+
+	function onPointerMove( event ) {
+
+scene.updateMatrixWorld();
+				pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+			
+	raycaster.setFromCamera( pointer, camera );
+
+				const intersects = raycaster.intersectObjects( necklace.children, true);
+
+
+
+				if ( intersects.length > 0 ) {
+
+					if ( INTERSECTED != intersects[ 0 ].object ) {
+
+						
+
+						INTERSECTED = intersects[ 0 ].object;
+
+							
+
+						 document.documentElement.style.cursor = "pointer";
+
+					
+						//INTERSECTED.material.roughness = 1;	
+
+						//cant figure out what to do here to highlight hovered
+										}
+
+				} else {
+
+
+					INTERSECTED = null;
+
+						 document.documentElement.style.cursor = "auto";
+
+		
+
+
+				}
+
+
+			}
+
+
+	function onDocumentMouseDown( event ) 
+{
+
+	console.log(camera.position);
+	console.log(camera.rotation);
+
+	scene.updateMatrixWorld();
+				pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+			
+	raycaster.setFromCamera( pointer, camera );
+
+				const intersects_click = raycaster.intersectObjects( necklace.children, true);
+
+
+
+				if ( intersects_click.length > 0 ) {
+
+
+
+					if ( INTERSECTED_click != intersects_click[ 0 ].object ) {
+
+					
+						$(".bg").fadeOut();	
+
+
+						INTERSECTED_click = intersects_click[ 0 ].object;
+
+							var selector = '#' + INTERSECTED_click.name;
+						
+						$(selector).fadeIn();	
+
+						cameraControls.fitToSphere( INTERSECTED_click, true );
+					
+						disableAutoRotate = false;
+
+						document.getElementById("caption").innerHTML = INTERSECTED.name;
+
+					
+					}
+
+				} else {
+
+						$(".bg").fadeOut();	
+
+
+
+					INTERSECTED_click = null;
+
+				
+						document.getElementById("caption").innerHTML = "";
+
+					disableAutoRotate = true;
+     
+					cameraControls.reset(true);
+
+
+				}
+
+
+
+}
+
+
+
+( function anim () {
+
+	const delta = clock.getDelta();
+	const elapsed = clock.getElapsedTime();
+	const updated = cameraControls.update( delta );
+
+		if ( ! disableAutoRotate ) {
+
+		cameraControls.azimuthAngle += 20 * delta * THREE.MathUtils.DEG2RAD;
+
+	}
+
+	// if ( elapsed > 30 ) { return; }
+
+	requestAnimationFrame( anim );
+
+	if ( updated ) {
+
+
+
+		renderer.render( scene, camera );
+	
+
+	}
+
+} )();
+
+
+
+
+
+const _box = new THREE.Box3();
+const _vec3 = new THREE.Vector3();
+
+
+
+function computeBoundingSphere( object3d ) {
+
+	// var meshCount = 0;
+	const points = [];
+	const boundingSphere = new THREE.Sphere();
+	const center = boundingSphere.center;
+
+	// find the center
+	object3d.traverse( function( object ) {
+
+		if ( ! object.isMesh ) return;
+
+		_box.expandByObject( object );
+
+	} );
+	_box.getCenter( center );
+
+	// find the radius
+	var maxRadiusSq = 0;
+	object3d.traverse( function( object ) {
+
+		if ( ! object.isMesh ) return;
+
+		const position = object.geometry.attributes.position;
+
+		for ( var i = 0, l = position.count; i < l; i ++ ) {
+
+			_vec3.fromBufferAttribute( position, i );
+			maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( _vec3 ) );
+
+		}
+
+	} );
+
+	boundingSphere.radius = Math.sqrt( maxRadiusSq );
+	return boundingSphere;
+
+}
+</script>
+
+<div style="background-image: url('shepherd_1.jpg')"
+id="shepherd_1" class="bg"></div>
+
+<div style="background-image: url('apple.jpeg')"
+id="apple" class="bg">
+</div>
+
+<div style="background-image: url('snake.jpeg')"
+id="snake_1" class="bg">
+</div>
+
+<div style="position:absolute; bottom:5px; left:10px; font-size:64px; color:gray;"
+
+id="caption">
+</div>
+</body>
+</html>
