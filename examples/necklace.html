@@ -9,15 +9,29 @@
 <style>
 .bg {
 display:none;
-position:absolute; z-index:-5; top:0; left:0; width:100vw; height:100vh; 
+position:absolute; z-index:-1; top:0; left:0; width:100vw; height:100vh; 
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.extra {
+
+	display:none;
+position:absolute; z-index:99; bottom:50px; left:0; width:100vw; height:100vh; 
 }
 
 p {
 	color:white;
 	text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-	z-index:99;
+	font-size:28px;
+}
+
+body > canvas {
+
+	position:relative;
+	height:100vh;
+	width:100vw;
+	z-index:0;
 }
 </style>
 </head>
@@ -180,19 +194,25 @@ scene.updateMatrixWorld();
 						
 						$(selector).fadeIn();	
 
+
+						var selector_2 = '#' + INTERSECTED_click.name + "2";
+						console.log(selector_2);
+						$(selector_2).fadeIn();
+						
 						cameraControls.fitToSphere( INTERSECTED_click, true );
 					
 						disableAutoRotate = false;
 
 						document.getElementById("caption").innerHTML = INTERSECTED.name;
 
-					
+						
+
 					}
 
 				} else {
 
 						$(".bg").fadeOut();	
-
+							$(".extra").fadeOut();	
 
 
 					INTERSECTED_click = null;
@@ -291,10 +311,16 @@ function computeBoundingSphere( object3d ) {
 
 <div style="background-image: url('shepherd_1.jpg')"
 id="shepherd_1" class="bg">
+
+</div>
+
+<div class="extra" id="shepherd_12">
+
 	<p><i>went into the underworld on a mission of salvation</i></p>
 	<p>+10 luck<p> 
 	<p>+5 affinity to animals </p>
 	<p>+3 musicality</p>
+
 </div>
 
 <div style="background-image: url('apple.jpeg')"
@@ -308,6 +334,9 @@ id="snake_1" class="bg">
 <div style="position:absolute; bottom:5px; left:10px; font-size:64px; color:gray;"
 
 id="caption">
+
 </div>
+
+	
 </body>
 </html>
