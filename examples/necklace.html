@@ -7,6 +7,31 @@
 <link rel="stylesheet" href="./style.css">
 
 <style>
+#info {
+	position: absolute;
+	top: 0px;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	z-index: 1; /* TODO Solve this in HTML */
+		right: auto;
+		top: auto;
+		max-height: 50%;
+		max-width: 40%;
+		bottom: 0;
+		right: 0;
+		width:300px;
+		font-family: bob;
+}
+
+
+
+
 
 @font-face {
     font-family: Alcohole;
@@ -29,7 +54,7 @@
 display:none;
 position:absolute; z-index:-1; top:0; left:0; width:100vw; height:100vh; 
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
 }
 
 .extra {
@@ -43,7 +68,7 @@ p {
 	      mix-blend-mode: exclusion;
 		font-family: Alcohole;
 		color:#cccccc;
-	text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+		text-shadow: 2.5px 0 0 #000, 0 -2.5px 0 #000, 0 2.5px 0 #000, -2.5px 0 0 #000;
 	font-size:18px;
 	text-align:center;
 }
@@ -99,7 +124,7 @@ const cameraControls = new CameraControls( camera, renderer.domElement );
 const light = new THREE.PointLight( 0xff0000, 1, 100 );
 scene.add(
 	new THREE.HemisphereLight( 0x443333, 0x332222 ),
-	new THREE.AmbientLight( 0x999999 ),
+	new THREE.AmbientLight( 0xf7f7f7 ),
 );
 
 raycaster = new THREE.Raycaster();
@@ -112,7 +137,7 @@ new THREE.GLTFLoader().load( './xmas2.glb', function ( gltf ) {
         if ( child.isMesh ) {
 
         		var model = child;
-				model.boundingSphere = computeBoundingSphere( model );
+		
 
         }
        });
@@ -293,44 +318,6 @@ const _vec3 = new THREE.Vector3();
 
 
 
-function computeBoundingSphere( object3d ) {
-
-	// var meshCount = 0;
-	const points = [];
-	const boundingSphere = new THREE.Sphere();
-	const center = boundingSphere.center;
-
-	// find the center
-	object3d.traverse( function( object ) {
-
-		if ( ! object.isMesh ) return;
-
-		_box.expandByObject( object );
-
-	} );
-	_box.getCenter( center );
-
-	// find the radius
-	var maxRadiusSq = 0;
-	object3d.traverse( function( object ) {
-
-		if ( ! object.isMesh ) return;
-
-		const position = object.geometry.attributes.position;
-
-		for ( var i = 0, l = position.count; i < l; i ++ ) {
-
-			_vec3.fromBufferAttribute( position, i );
-			maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( _vec3 ) );
-
-		}
-
-	} );
-
-	boundingSphere.radius = Math.sqrt( maxRadiusSq );
-	return boundingSphere;
-
-}
 </script>
 
 <div style="background-image: url('shepherd_1.jpg')"
